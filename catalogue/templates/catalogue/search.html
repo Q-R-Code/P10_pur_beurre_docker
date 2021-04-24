@@ -1,0 +1,87 @@
+{% extends 'catalogue/base.html' %}
+{%
+
+{% block content %}
+{% load static %}
+{% if no_product %}
+<header class="masthead ">
+    <div class="container my-5">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+            <h2 class="text-uppercase text-white font-weight-bold my-5">Nous n'avons pas trouvé de résultats pour votre
+                recherche... </h2>
+            <hr class="divider my-4"/>
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <form class="input-group" action="{% url 'catalogue:search' %}" method="get" accept-charset="utf-8">
+                        <input class="form-control" type="text" name="query" id="query">
+                        <input type="submit" class="btn btn-outline-warning my-2 my-sm-0" value="Chercher">
+                    </form>
+                </div>
+                <hr class="divider my-4"/>
+                <div class="row justify-content-center">
+                    <img width="200" height="270" alt="Carrot_sad"
+                         src="{% static 'catalogue/assets/img/carrot_sad.png' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% else %}
+<header class="masthead-search h-50">
+    <div class="container">
+        <h3 class="text-uppercase  text-center text-white font-weight-bold my-5">Voici les produits que nous avons
+            trouvé:</h3>
+        <hr class="divider "/>
+    </div>
+</header>
+<div class="container">
+    <div class="row mt-5">
+        {% for product in page %}
+        <div class="col-md-4 my-5">
+            <div class="card border-primary" style="background-color: #ffedd4">
+                <div class="nutriscore nutriscore-{{ product.nutriscore_grade }} text-center">
+                    {{ product.nutriscore_grade|upper }}
+                </div>
+                <a class="mx-auto" title="Voir la fiche de ce produit"
+                   href="{{ product.url }}">
+                    <img src="{{ product.image_url }}" class="image_url img-fluid mt-3 mx-auto"
+                         alt="">
+                </a>
+                <div id="card" class="card-body">
+                    <h5 class="card-title short text-center" title="{{ product.name }}">{{ product.name }}</h5>
+                    <small><p class="short text-center"><a href="{{ product.url }}">Voir le produit sur
+                        Openfoodfacts</a></p></small>
+                    <a href="{% url 'catalogue:detail' product_id=product.id %}"
+                       class="btn btn-primary d-block w-75 mx-auto">
+                        Rechercher un substitut
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="container pagination justify-content-center mb-5">
+                <span class="step-links">
+                    {% if page.has_previous %}
+                        <a href="?query={{ query }}&page=1">&laquo; Début</a>
+                        <a href="?query={{ query }}&page={{ page.previous_page_number }}">Page précédente</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ page.number }} sur {{ page.paginator.num_pages }}
+                    </span>
+
+                    {% if page.has_next %}
+                        <a href="?query={{ query }}&page={{ page.next_page_number }}">Page suivante</a>
+                        <a href="?query={{ query }}&page={{ page.paginator.num_pages }}">Fin &raquo;</a>
+                    {% endif %}
+                </span>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+
+{% endblock %}

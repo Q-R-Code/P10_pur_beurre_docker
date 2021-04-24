@@ -1,0 +1,71 @@
+{% extends 'catalogue/base.html' %}
+{% load static %}
+{% block content %}
+<header class="masthead-search h-50">
+<section class="h-100 py-2" style="background-image: url({{ product.image_url }})">
+        <div class="container">
+            <div class="row justify-content-center text-light">
+                <h2 class="bg-secondary p-2 text-center rounded mt-5">{{ product.name }}</h2>
+            </div>
+        </div>
+</section>
+</header>
+{% if page|length == 0 %}
+<div class="container">
+    <h3 class="text-uppercase  text-center font-weight-bold my-5">Il n'y a pas de substitut pour ce produit actuellement ...</h3>
+    <hr class="divider "/>
+</div>
+{% else %}
+<div class="container">
+    <h3 class="text-uppercase  text-center font-weight-bold my-5">Voici des substituts pour ce produit:</h3>
+    <hr class="divider "/>
+</div>
+<div class="container">
+    <div class="row mt-5">
+{% for substitute in page %}
+        <div class="col-md-4 my-5">
+            <div class="card border-primary" style="background-color: #ffedd4">
+                <div class="nutriscore nutriscore-{{ substitute.nutriscore_grade }} text-center">
+                    {{ substitute.nutriscore_grade|upper }}
+                </div>
+                <a class="mx-auto" title="Voir la fiche de ce produit"
+                   href="{{ substitute.url }}">
+                    <img src="{{ substitute.image_url }}" class="image_url img-fluid mt-3 mx-auto"
+                         alt="">
+                </a>
+                <img src="{{ substitute.image_nutriments }}" class="image_url img-fluid mt-3 mx-auto"
+                         alt="">
+                <div id="card" class="card-body">
+                    <h5 class="card-title short text-center" title="{{ substitute.name }}">{{ substitute.name }}</h5>
+                    {% if user.is_authenticated %}
+                    <form class="input-group justify-content-center" action="{% url 'catalogue:save' %}" method="POST" accept-charset="utf-8">
+                        {% csrf_token %}
+                        <input class="form-control" type="text" style="display: none;" name="substitutes" value="{{ substitute.id }}">
+                        <input type="submit" class="btn btn-outline-warning my-2 my-sm-0 " value="Sauvegarder ce substitut">
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="container pagination justify-content-center mb-5">
+                <span class="step-links">
+                    {% if page.has_previous %}
+                        <a href="?query={{ query }}&page=1">&laquo; Début</a>
+                        <a href="?query={{ query }}&page={{ page.previous_page_number }}">Page précédente</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ page.number }} sur {{ page.paginator.num_pages }}
+                    </span>
+
+                    {% if page.has_next %}
+                        <a href="?query={{ query }}&page={{ page.next_page_number }}">Page suivante</a>
+                        <a href="?query={{ query }}&page={{ page.paginator.num_pages }}">Fin &raquo;</a>
+                    {% endif %}
+                </span>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
