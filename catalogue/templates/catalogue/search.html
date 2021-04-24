@@ -48,12 +48,12 @@
                     <img src="{{ product.image_url }}" class="image_url img-fluid mt-3 mx-auto"
                          alt="">
                 </a>
-                <div id="card" class="card-body">
+                <div id="card-{{product.name}}" class="card-body">
                     <h5 class="card-title short text-center" title="{{ product.name }}">{{ product.name }}</h5>
                     <small><p class="short text-center"><a href="{{ product.url }}">Voir le produit sur
                         Openfoodfacts</a></p></small>
                     <a href="{% url 'catalogue:detail' product_id=product.id %}"
-                       class="btn btn-primary d-block w-75 mx-auto">
+                       class="btn btn-primary d-block w-75 mx-auto" id="search-{{product.name}}">
                         Rechercher un substitut
                     </a>
                 </div>

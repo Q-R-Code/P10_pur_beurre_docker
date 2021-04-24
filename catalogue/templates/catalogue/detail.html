@@ -20,6 +20,12 @@
     <h3 class="text-uppercase  text-center font-weight-bold my-5">Voici des substituts pour ce produit:</h3>
     <hr class="divider "/>
 </div>
+{% if user.is_authenticated == False %}
+<div class="container">
+    <a href="{% url 'account:login' %}"><h4 class="mx-auto text-center" >Pour pouvoir sauvegarder un substitut vous devez être connecté.</h4></a>
+    <hr class="divider "/>
+</div>
+{% endif %}
 <div class="container">
     <div class="row mt-5">
 {% for substitute in page %}
@@ -38,10 +44,9 @@
                 <div id="card" class="card-body">
                     <h5 class="card-title short text-center" title="{{ substitute.name }}">{{ substitute.name }}</h5>
                     {% if user.is_authenticated %}
-                    <form class="input-group justify-content-center" action="{% url 'catalogue:save' %}" method="POST" accept-charset="utf-8">
+                    <form class="input-group justify-content-center" action="{% url 'catalogue:save' sub_id=substitute.id %}" method="POST" accept-charset="utf-8">
                         {% csrf_token %}
-                        <input class="form-control" type="text" style="display: none;" name="substitutes" value="{{ substitute.id }}">
-                        <input type="submit" class="btn btn-outline-warning my-2 my-sm-0 " value="Sauvegarder ce substitut">
+                        <input type="submit" class="btn btn-outline-warning my-2 my-sm-0 " id="save-{{substitute.name}}" value="Sauvegarder ce substitut">
                     </form>
                     {% endif %}
                 </div>

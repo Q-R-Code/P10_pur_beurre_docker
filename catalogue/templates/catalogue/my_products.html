@@ -31,9 +31,8 @@
                          alt="">
                 <div id="card" class="card-body">
                     <h5 class="card-title short text-center" title="{{ substitute.name }}">{{ substitute.name }}</h5>
-                    <form class="input-group justify-content-center" action="{% url 'catalogue:delete' %}" method="POST" accept-charset="utf-8">
+                    <form class="input-group justify-content-center" action="{% url 'catalogue:delete' sub_id=substitute.id %}" method="POST" accept-charset="utf-8">
                         {% csrf_token %}
-                        <input class="form-control" type="text" style="display: none;" name="substitutes" value="{{ substitute.id }}">
                         <input type="submit" class="btn btn-outline-warning my-2 my-sm-0 " value="Supprimer ce substitut">
                     </form>
                 </div>
