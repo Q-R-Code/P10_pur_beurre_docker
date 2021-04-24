@@ -1,3 +1,8 @@
+"""
+The different models for the application.
+One for the products and one for the registration of a substitute with the id of a product and the id of a user.
+
+"""
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -12,13 +17,9 @@ class Product(models.Model):
     url = models.URLField(null=True)
 
     class Meta:
-        verbose_name = "Product"
         ordering = ['nutriscore_grade']
 
 
 class Sub_saved(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     sub = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = "Sub_saved"
