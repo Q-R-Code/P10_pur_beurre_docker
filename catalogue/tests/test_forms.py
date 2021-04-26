@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from seleniumlogin import force_login
+from webdriver_manager.firefox import GeckoDriverManager
 
 from ..models import Product
 
@@ -11,7 +12,7 @@ class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
     """Test search , save form submission"""
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
         time.sleep(5)
         Product.objects.create(
             name="Produit1",

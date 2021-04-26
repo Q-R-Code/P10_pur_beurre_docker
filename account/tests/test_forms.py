@@ -3,14 +3,14 @@ import time
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User
 from selenium import webdriver
-
+from webdriver_manager.firefox import GeckoDriverManager
 
 
 class Test_functionnal_App_Account(StaticLiveServerTestCase):
     """Test correct register and connection form submission"""
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
         time.sleep(5)
         User.objects.create(username="user1", email="user1@user1.com", password="azerty").save()
 
