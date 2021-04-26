@@ -10,7 +10,7 @@ class Test_functionnal_App_Account(StaticLiveServerTestCase):
     """Test correct register and connection form submission"""
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         time.sleep(5)
         User.objects.create(username="user1", email="user1@user1.com", password="azerty").save()
 

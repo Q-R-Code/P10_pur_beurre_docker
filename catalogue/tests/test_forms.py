@@ -11,7 +11,7 @@ class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
     """Test search , save form submission"""
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         time.sleep(5)
         Product.objects.create(
             name="Produit1",
