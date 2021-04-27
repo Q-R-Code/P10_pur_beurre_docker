@@ -1,14 +1,8 @@
-FROM python:3.9-alpine
-
-
-ADD . /app
-
-WORKDIR /app
-
-COPY requirements.txt ./
-
+# syntax=docker/dockerfile:1
+FROM python:3
+ENV PYTHONUNBUFFERED=1
+WORKDIR /code
+COPY requirements.txt /code/
 RUN pip install -r requirements.txt
+COPY . /code/
 
-EXPOSE 8000
-
-CMD exec gunicorn django_in_docker.wsgi:application --bind
