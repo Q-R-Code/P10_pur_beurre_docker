@@ -5,13 +5,16 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from seleniumlogin import force_login
 
+
 from ..models import Product
 
 class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
     """Test search , save form submission"""
 
     def setUp(self):
+
         self.driver = webdriver.Firefox()
+        time.sleep(5)
         Product.objects.create(
             name="Produit1",
             image_url="https://produit1-image-url.fr",
@@ -43,27 +46,30 @@ class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
         Then display the "my products" page to verify the presence of this one
         """
         force_login(self.user1, self.driver, self.live_server_url)
+        time.sleep(5)
         self.driver.get(str(self.live_server_url) + '/search/?query=Produit1')
         search_button = self.driver.find_element_by_id('search-Produit1')
         search_button.click()
 
+        time.sleep(5)
+
         redirection_url = self.driver.current_url
         self.assertEquals(self.live_server_url + f"/{self.product1.id}/", redirection_url)
 
-        time.sleep(2)
+        time.sleep(5)
 
         save_button = self.driver.find_element_by_id('save-Produit2')
         save_button.click()
 
-        time.sleep(2)
+        time.sleep(5)
 
         redirection_url = self.driver.current_url
         self.assertEquals(self.live_server_url + "/", redirection_url)
 
-        time.sleep(2)
+        time.sleep(5)
 
         self.driver.get(str(self.live_server_url) + '/mes-produits/')
 
-        time.sleep(3)
+        time.sleep(5)
 
         self.driver.quit()
