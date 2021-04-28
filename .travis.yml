@@ -1,0 +1,14 @@
+language: python
+python:
+  - '3.9'
+
+before_script:
+  - pip install -r requirements.txt
+
+env: DJANGO_SETTINGS_MODULE="pur_beurre_project_app.settings.travis"
+
+services:
+  - postgresql
+
+script:
+  - python manage.py test
