@@ -16,6 +16,6 @@ env: DJANGO_SETTINGS_MODULE="pur_beurre_project_app.settings.travis"
 services:
   - postgresql
 
-coverage:
-  script:
-    - python manage.py test
+
+script:
+  - python manage.py test
