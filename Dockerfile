@@ -1,6 +1,6 @@
 FROM python:3.9
 
-ENV PYTHONUNBUFFERED 1
+ENV DJANGO_SETTINGS_MODULE="pur_beurre_project_app.settings.production"
 
 ADD . /app
 
