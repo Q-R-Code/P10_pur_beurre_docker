@@ -3,10 +3,10 @@ FROM python:3.9
 
 
 #add project files to the usr/src/app folder
-ADD . /usr/src/app
+ADD . /app
 
 #set directoty where CMD will execute
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY requirements.txt ./
 
@@ -14,7 +14,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose ports
-EXPOSE 8001
+EXPOSE 8004
 
 # default command to execute
-CMD exec gunicorn djangoapp.wsgi:application --bind 0.0.0.0:8001 --workers 3
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -16,6 +16,11 @@ env: DJANGO_SETTINGS_MODULE="pur_beurre_project_app.settings.travis"
 services:
   - postgresql
 
-script:
-  - coverage run --source='.' manage.py test
+coverage:
+  script:
+    - coverage run --source='.' manage.py test
 
+deploy:
+  script:
+    - docker build -t djangotest .
+    -

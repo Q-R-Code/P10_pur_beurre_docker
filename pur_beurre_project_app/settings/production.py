@@ -1,23 +1,18 @@
 from . import *
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'v=^p*!*ackpa8nx@=i-+t$!kp22r5rtz7ynx8h*9$b39#iq8s6'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = False
 
-# ALLOWED_HOSTS = ['purbeurre-denicheur.herokuapp.com']
-ALLOWED_HOSTS = ['127.0.0.1']
-
+ALLOWED_HOSTS = ['192.168.1.49']
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pur_beurre',
-        'USER': 'flynz',
+        'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'HOST': '192.168.1.49',
         'PORT': '5432',
     }
 }
