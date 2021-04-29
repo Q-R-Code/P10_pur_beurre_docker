@@ -19,8 +19,3 @@ services:
 coverage:
   script:
     - coverage run --source='.' manage.py test
-
-deploy:
-  script:
-    - docker build -t djangotest .
-    -
