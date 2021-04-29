@@ -25,7 +25,7 @@ SECRET_KEY = 'v=^p*!*ackpa8nx@=i-+t$!kp22r5rtz7ynx8h*9$b39#iq8s6'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.49']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -85,10 +85,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pur_beurre',
-        'USER': 'postgres',
+        'USER': 'flynz',
         'PASSWORD': 'admin',
-        'HOST': '192.168.1.49',
-        'PORT': 5432,
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
