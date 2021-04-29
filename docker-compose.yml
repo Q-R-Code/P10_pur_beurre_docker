@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build: .
-    ENV: DJANGO_SETTINGS_MODULE="pur_beurre_project_app.settings.production"
+    env_file: DJANGO_SETTINGS_MODULE="pur_beurre_project_app.settings.production"
     # exécuter la commande Django runserver
     # qui démarre un serveur de développement
     # https://docs.djangoproject.com/en/2.1/ref/django-admin/#runserver
