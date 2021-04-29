@@ -128,6 +128,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (str(BASE_DIR.joinpath('pur_beurre_project_app/static')),)
+
+STATIC_ROOT = (str(BASE_DIR.joinpath('staticfiles')),)
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LOGIN_REDIRECT_URL = "/"
