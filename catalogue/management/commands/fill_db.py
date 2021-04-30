@@ -8,8 +8,8 @@ from django.db import transaction, IntegrityError
 class Command(BaseCommand):
     help = "Fill the database with product from API Openfoodfacts"
 
-    def handle(self, *args, **options):
-        url = "https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=unique_scans_n&?sort_by=popularity&page_size=200&json=true"
+    def handle(self, number, **options):
+        url = f"https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=unique_scans_n&?sort_by=popularity&page_size={number}&json=true"
         req = requests.get(url)
         data = req.json()
         prod = data["products"]
