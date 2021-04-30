@@ -11,7 +11,7 @@ class Command(BaseCommand):
         parser.add_argument('number', type=int, help='Indicates the number of products you wants to add.')
 
     def handle(self, *args, **options):
-        number = kwargs['number']
+        number = options['number']
         url = f"https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=unique_scans_n&?sort_by=popularity&page_size={number}&json=true"
         req = requests.get(url)
         data = req.json()
