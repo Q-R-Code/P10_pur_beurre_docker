@@ -6,9 +6,12 @@ from django.db import transaction, IntegrityError
 
 
 class Command(BaseCommand):
-    help = "Fill the database with product from API Openfoodfacts"
+    help = "Fill the database with products from API Openfoodfacts"
+    def add_arguments(self, parser):
+        parser.add_arguments('number', type=int, help='Indicates the number of products you wants to add.')
 
-    def handle(self, number, **options):
+    def handle(self, *args, **options):
+        number = kwargs['number']
         url = f"https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=unique_scans_n&?sort_by=popularity&page_size={number}&json=true"
         req = requests.get(url)
         data = req.json()
