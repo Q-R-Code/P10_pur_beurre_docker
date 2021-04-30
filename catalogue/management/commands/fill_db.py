@@ -8,7 +8,7 @@ from django.db import transaction, IntegrityError
 class Command(BaseCommand):
     help = "Fill the database with products from API Openfoodfacts"
     def add_arguments(self, parser):
-        parser.add_arguments('number', type=int, help='Indicates the number of products you wants to add.')
+        parser.add_argument('number', type=int, help='Indicates the number of products you wants to add.')
 
     def handle(self, *args, **options):
         number = kwargs['number']
