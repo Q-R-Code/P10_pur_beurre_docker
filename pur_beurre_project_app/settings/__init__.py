@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'crispy_forms',
+    'django_crontab',
     'catalogue.apps.CatalogueConfig',
     'account.apps.AccountConfig',
 
@@ -135,5 +136,10 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-# Activate Django-Heroku.
-# django_heroku.settings(locals())
+
+#CRONJOBS
+
+CRONJOBS = [
+    ('*/5 * * * *', 'P10_pur_beurre_docker.cron.my_cron_jobs')
+
+]
