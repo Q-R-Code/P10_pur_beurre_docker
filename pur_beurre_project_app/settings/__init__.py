@@ -140,6 +140,6 @@ LOGOUT_REDIRECT_URL = "/"
 #CRONJOBS
 
 CRONJOBS = [
-    ('*/5 * * * *', 'P10_pur_beurre_docker.cron.my_cron_jobs')
+    ('*/1 * * * *', 'P10_pur_beurre_docker.cron.my_cron_jobs', '>> /var/log/cron.log')
 
 ]

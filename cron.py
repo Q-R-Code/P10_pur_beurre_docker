@@ -28,3 +28,5 @@ def my_cron_jobs():
         except:
             self.stdout.write(f'Exception : {name} not saved ...')
     self.stdout.write(f'Fill_db : {number_prod} products are saved!')
+
+
