@@ -9,4 +9,4 @@ services:
     volumes:
       - .:/app
     ports:
-      - 8004:8000
+      - 8005:8000
