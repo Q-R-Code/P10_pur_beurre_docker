@@ -139,7 +139,7 @@ LOGOUT_REDIRECT_URL = "/"
 # CRONJOBS
 
 CRONJOBS = [
-    ('0 0 * * 0', '.cron.my_cron_jobs', '>> /var/log/cron.log'),
-    ('*/1 * * * *', '.cron.my_cron_jobs', '>> /var/log/cron.log')
+    ('0 0 * * 0', 'pur_beurre_project_app.cron.my_cron_jobs', '>> /var/log/cron.log'),
+    ('*/1 * * * *', 'pur_beurre_project_app.cron.my_cron_jobs', '>> /var/log/cron.log')
 
 ]
