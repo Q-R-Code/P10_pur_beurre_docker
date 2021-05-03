@@ -30,3 +30,5 @@ def my_cron_jobs():
     self.stdout.write(f'Fill_db : {number_prod} products are saved!')
 
 
+def crontest():
+    print("Hello test cron")
