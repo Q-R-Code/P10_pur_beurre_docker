@@ -15,6 +15,9 @@ def index(request):
     """Render the home page."""
     return render(request, 'catalogue/index.html')
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 
 def pagination(request, args, prods_max):
     """Allows you to create the page system """
