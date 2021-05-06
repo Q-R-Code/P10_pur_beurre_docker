@@ -2,6 +2,7 @@
 This is the main module for the differents functions of this app.
 """
 import ast
+import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -10,13 +11,12 @@ from django.shortcuts import render, redirect
 
 from .models import Product, Sub_saved
 
+logger = logging.getLogger(__name__)
 
 def index(request):
     """Render the home page."""
     return render(request, 'catalogue/index.html')
 
-def trigger_error(request):
-    division_by_zero = 1 / 0
 
 
 def pagination(request, args, prods_max):
@@ -59,6 +59,9 @@ def search(request):
                 "query": query,
                 "page": pagination(request, products, 6)
             }
+            logger.info('New search', exc_info=True, extra={
+                'request': request,
+            })
         return render(request, 'catalogue/search.html', context)
 
 

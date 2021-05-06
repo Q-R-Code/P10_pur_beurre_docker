@@ -16,5 +16,5 @@ urlpatterns = [
     url(r'^(?P<product_id>[0-9]+)/$', views.detail, name='detail'),
     url(r'^save/(?P<sub_id>[0-9]+)/$', views.save_in_db, name='save'),
     url(r'^supprimer/(?P<sub_id>[0-9]+)/$', views.delete_sub, name="delete"),
-    url('sentry-debug/', views.trigger_error),
+
 ]
