@@ -9,12 +9,14 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 
+
 from .models import Product, Sub_saved
 
-logger = logging.getLogger(__name__)
+
 
 def index(request):
     """Render the home page."""
+    logging.info("Open Index")
     return render(request, 'catalogue/index.html')
 
 
@@ -59,9 +61,6 @@ def search(request):
                 "query": query,
                 "page": pagination(request, products, 6)
             }
-            logger.info('New search', exc_info=True, extra={
-                'request': request,
-            })
         return render(request, 'catalogue/search.html', context)
 
 
