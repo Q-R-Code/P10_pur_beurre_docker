@@ -17,6 +17,7 @@ from .models import Product, Sub_saved
 def index(request):
     """Render the home page."""
     logging.info("Open Index")
+    logging.error("test errors xxxxx")
     return render(request, 'catalogue/index.html')
 
 
