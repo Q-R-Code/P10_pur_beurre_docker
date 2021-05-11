@@ -9,17 +9,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 
-
 from .models import Product, Sub_saved
-
 
 
 def index(request):
     """Render the home page."""
-    logging.info("Open Index")
-    logging.error("test errors xxxxx")
     return render(request, 'catalogue/index.html')
-
 
 
 def pagination(request, args, prods_max):
