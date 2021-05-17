@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 
-from .models import Product, Sub_saved
+from .models import Product, Sub_saved, Search_history
 
 
 def index(request):
@@ -48,10 +48,25 @@ def search(request):
         return render(request, 'catalogue/search.html', context)
     else:
         if request.user.is_authenticated:
-            #Vérifie les recherches
-            #Si 10 recherches, classe par date et supprime la plus ancienne
-            #ajoute la nouvelle recherche
-            pass
+            user = request.user
+            search = Search_history.objects.filter(user_id=user.id)
+            if not search.exists():
+                Search_history.objects.create(user_id=user.id,
+                                              query=query)
+            else:
+                number = search.count()
+                if number > 9:
+                    date = list(search.order_by('date', 'id'))
+                    oldier = date[0].date
+                    delete_query = Search_history.objects.filter(user_id=user.id,
+                                                                 date=oldier)
+                    delete_query.delete()
+                    Search_history.objects.create(user_id=user.id,
+                                                  query=query)
+                else:
+                    Search_history.objects.create(user_id=user.id,
+                                                  query=query)
+
         products = Product.objects.filter(name__icontains=query)
         if not products.exists():
             context = {
