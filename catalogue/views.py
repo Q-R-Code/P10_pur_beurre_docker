@@ -151,7 +151,12 @@ def legal_notice(request):
 @login_required
 def my_page(request):
     """Allows you to display a user's "my account" page. Must be logged in.  """
-    return render(request, 'catalogue/my_page.html')
+    user = request.user
+    history = Search_history.objects.filter(user_id=user.id)
+    context = {
+        "history": history
+    }
+    return render(request, 'catalogue/my_page.html', context)
 
 
 @login_required
