@@ -47,6 +47,11 @@ def search(request):
         }
         return render(request, 'catalogue/search.html', context)
     else:
+        if request.user.is_authenticated:
+            #Vérifie les recherches
+            #Si 10 recherches, classe par date et supprime la plus ancienne
+            #ajoute la nouvelle recherche
+            pass
         products = Product.objects.filter(name__icontains=query)
         if not products.exists():
             context = {

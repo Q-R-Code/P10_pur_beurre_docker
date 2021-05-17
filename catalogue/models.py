@@ -23,3 +23,8 @@ class Product(models.Model):
 class Sub_saved(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     sub = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+class Search_history(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    query = models.CharField(max_length=200)
+    date = models.DateTimeField(auto_now_add=True)
