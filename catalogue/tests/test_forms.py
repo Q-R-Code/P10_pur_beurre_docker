@@ -5,14 +5,13 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from seleniumlogin import force_login
 
+from ..models import Product, Search_history
 
-from ..models import Product
 
 class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
     """Test search , save form submission"""
 
     def setUp(self):
-
         self.driver = webdriver.Firefox()
         time.sleep(5)
         Product.objects.create(
@@ -72,4 +71,18 @@ class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
 
         time.sleep(5)
 
+        self.driver.quit()
+
+    def test_query_my_page(self):
+        """Force login , search a product 11 times and checks that there are only 10 searches for the user.
+
+        """
+        force_login(self.user1, self.driver, self.live_server_url)
+        time.sleep(5)
+        for x in range(11):
+            self.driver.get(str(self.live_server_url) + '/search/?query=Produit1')
+            time.sleep(1)
+        query = Search_history.objects.filter(user_id=self.user1.id)
+        count = query.count()
+        self.assertEquals(count, 10)
         self.driver.quit()
