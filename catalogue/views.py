@@ -47,12 +47,14 @@ def search(request):
         }
         return render(request, 'catalogue/search.html', context)
     else:
+        products = Product.objects.filter(name__icontains=query)
+        number_products = products.count()
         if request.user.is_authenticated:
             user = request.user
             search = Search_history.objects.filter(user_id=user.id)
             if not search.exists():
                 Search_history.objects.create(user_id=user.id,
-                                              query=query)
+                                              query=query, number=number_products)
             else:
                 number = search.count()
                 if number > 9:
@@ -62,12 +64,11 @@ def search(request):
                                                                  date=oldier)
                     delete_query.delete()
                     Search_history.objects.create(user_id=user.id,
-                                                  query=query)
+                                                  query=query, number=number_products)
                 else:
                     Search_history.objects.create(user_id=user.id,
-                                                  query=query)
+                                                  query=query, number=number_products)
 
-        products = Product.objects.filter(name__icontains=query)
         if not products.exists():
             context = {
                 "no_product": True
@@ -151,12 +152,25 @@ def legal_notice(request):
 @login_required
 def my_page(request):
     """Allows you to display a user's "my account" page. Must be logged in.  """
-    user = request.user
-    history = Search_history.objects.filter(user_id=user.id)
-    context = {
-        "history": history
-    }
-    return render(request, 'catalogue/my_page.html', context)
+    if request.method == "POST":
+        user = request.user
+        history = Search_history.objects.filter(user_id=user.id)
+        history.delete()
+        return render(request, 'catalogue/my_page.html')
+    else:
+        user = request.user
+        history = Search_history.objects.filter(user_id=user.id)
+        context = {
+            "history": history
+        }
+        return render(request, 'catalogue/my_page.html', context)
+
+
+def clean_history(request):
+    if request.method == "POST":
+        user = request.user
+        history = Search_history.objects.filter(user_id=user.id)
+        history.delete()
 
 
 @login_required

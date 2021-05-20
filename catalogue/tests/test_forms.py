@@ -57,7 +57,7 @@ class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
 
         time.sleep(5)
 
-        save_button = self.driver.find_element_by_id('save-Produit2')
+        save_button = self.driver.find_element_by_id('saved-Produit2')
         save_button.click()
 
         time.sleep(5)

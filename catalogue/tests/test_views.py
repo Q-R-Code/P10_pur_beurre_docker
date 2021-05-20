@@ -75,6 +75,7 @@ class TestProducts(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'catalogue/detail.html')
 
+
 class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
     """Test search , save form submission"""
 
@@ -109,14 +110,24 @@ class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
 
     def test_query_my_page(self):
         """Force login , search a product 11 times and checks that there are only 10 searches for the user.
+        Then test "clean history" and checks that there are nothing in the tables.
 
         """
         force_login(self.user1, self.driver, self.live_server_url)
         time.sleep(5)
         for x in range(11):
-            self.driver.get(str(self.live_server_url) + '/search/?query=Produit1')
+            self.driver.get(str(self.live_server_url) + f'/search/?query=Produit{x}')
             time.sleep(1)
         query = Search_history.objects.filter(user_id=self.user1.id)
-        count = query.count()
-        self.assertEquals(count, 10)
+        self.assertEquals(query.count(), 10)
+
+        query2 = Search_history.objects.filter(user_id=self.user1.id, query__icontains='Produit0')
+        self.assertEquals(query2.count(), 0)
+
+        self.driver.get(str(self.live_server_url) + '/mon-compte/')
+        clean_button = self.driver.find_element_by_id('clean_history')
+        clean_button.click()
+        time.sleep(1)
+        query3 = Search_history.objects.filter(user_id=self.user1.id)
+        self.assertEquals(query3.count(), 0)
         self.driver.quit()

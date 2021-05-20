@@ -23,7 +23,8 @@
             <tr>
                 <th>Recherche</th>
                 <th>Date</th>
-                <th>Lien</th>
+                <th>Nombre de résultats</th>
+                <th>Relancer la recherche</th>
             </tr>
             </thead>
             <tbody>
@@ -31,6 +32,7 @@
             <tr>
                 <td>{{query.query}}</td>
                 <td>{{query.date}}</td>
+                <td>{{query.number}}</td>
                 <td><h5><a href="/search/?query={{query.query}}"><img width="15" height="15"
                                                                       src="{% static 'catalogue/assets/img/lien.svg' %}"></a>
                 </h5></td>
@@ -38,6 +40,10 @@
             {% endfor %}
             </tbody>
         </table>
+        <form class="input-group justify-content-center" action="{% url 'catalogue:my_page' %}" method="POST" accept-charset="utf-8">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-outline-warning my-2 my-sm-0 " id="clean_history" value="Supprimer l'historique de recherche">
+        </form>
     </div>
 </div>
 
