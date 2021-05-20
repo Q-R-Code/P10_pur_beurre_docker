@@ -5,14 +5,13 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from seleniumlogin import force_login
 
+from ..models import Product, Search_history
 
-from ..models import Product
 
 class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
     """Test search , save form submission"""
 
     def setUp(self):
-
         self.driver = webdriver.Firefox()
         time.sleep(5)
         Product.objects.create(
@@ -58,7 +57,7 @@ class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
 
         time.sleep(5)
 
-        save_button = self.driver.find_element_by_id('save-Produit2')
+        save_button = self.driver.find_element_by_id('saved-Produit2')
         save_button.click()
 
         time.sleep(5)
@@ -73,3 +72,5 @@ class Test_Functionnal_App_Catalogue(StaticLiveServerTestCase):
         time.sleep(5)
 
         self.driver.quit()
+
+
